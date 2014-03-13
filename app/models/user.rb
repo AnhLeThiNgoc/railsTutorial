@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
   validates :email, presence: true, format: {with: VALID_EMAIL_REGEX}, uniqueness: {case_sensitive: false} 
   validates :password, presence: true, length: {minimum: 1}
   validates :password_confirmation, presence: true
+  # mot thong bao tot hon cho viec quen password
+  after_validation {self.errors.messages.delete(:password_digest)}
   has_secure_password
 
 end
