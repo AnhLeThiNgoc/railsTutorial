@@ -3,11 +3,14 @@ class SessionsController < ApplicationController
 		
 	end
 	def create
+		# binding.pry
 		user = User.find_by_email(params[:session][:email].downcase)
 		if user && user.authenticate(params[:session][:password])
 			# Sign the user in and redirect to the user's show page.
 			sign_in user
-			redirect_to user
+			# binding.pry
+			# redirect_to user
+			redirect_back_or user
 		else
 			flash[:error] = "Invalid email/password combination"
 			render 'new'
