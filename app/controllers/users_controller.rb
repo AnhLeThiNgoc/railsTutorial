@@ -14,6 +14,7 @@ class UsersController < ApplicationController
   end
   def show
   	@user = User.find(params[:id])
+    @microposts = @user.microposts.paginate(page: params[:page])
   	# binding.pry
   end
 
@@ -26,6 +27,7 @@ class UsersController < ApplicationController
 
   def create
   	@user = User.new(params[:user])
+    # binding.pry
   	if @user.save
       # binding.pry
   		# Handle a succuessful save

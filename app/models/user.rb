@@ -22,4 +22,9 @@ class User < ActiveRecord::Base
   after_validation {self.errors.messages.delete(:password_digest)}
   has_secure_password
 
+  has_many :microposts, dependent: :destroy # micropost bi destroy cung voi User
+
+  def feed
+    Micropost.where("user_id = ?", id)
+  end
 end
